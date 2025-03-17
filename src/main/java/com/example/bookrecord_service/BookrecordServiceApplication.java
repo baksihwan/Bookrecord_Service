@@ -8,6 +8,7 @@ public class BookrecordServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BookrecordServiceApplication.class, args);
+        System.out.println("Hello World");
     }
 
 }
