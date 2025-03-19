@@ -1,4 +1,4 @@
-package com.example.bookrecord_service;
+package com.example.bookrecordService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
