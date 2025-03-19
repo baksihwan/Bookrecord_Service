@@ -7,5 +7,5 @@ import org.springframework.data.annotation.Id;
 @Entity
 @NoArgsConstructor
 public class Book {
-    @Id
+
 }
