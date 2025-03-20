@@ -13,7 +13,8 @@
 
 ## 🔥다이어그램
 
-![image](https://github.com/user-attachments/assets/1b1ce975-3ca5-49f5-a37b-436dbddfdaf9)
+![image](https://github.com/user-attachments/assets/208a356e-19c8-47c7-8179-fe24b82c083f)
+
 
 
 
