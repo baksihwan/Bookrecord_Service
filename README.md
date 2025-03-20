@@ -17,6 +17,13 @@
 
 
 
+## 🎨ERD
+
+![image](https://github.com/user-attachments/assets/6ad76d28-04a1-4a41-83ce-6beef2270915)
+
+
+
+
 
 
 
