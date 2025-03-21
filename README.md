@@ -22,6 +22,34 @@
 ![image](https://github.com/user-attachments/assets/6ad76d28-04a1-4a41-83ce-6beef2270915)
 
 
+## ♻️API 명세서
+
+<details> 
+<summary>API명세서
+</summary>
+## 사용자
+![image](https://github.com/user-attachments/assets/0bea9f87-f041-434f-b718-af38d9502ae0)
+
+
+## 이미지 파일
+![image](https://github.com/user-attachments/assets/67e71c50-9022-45e2-be34-66983d3c7d90)
+
+
+## 댓글
+
+![image](https://github.com/user-attachments/assets/5857345d-6422-42e9-a827-df113f9ffbd1)
+
+## 친구관리
+
+![image](https://github.com/user-attachments/assets/a95edf29-8f51-4dfc-81eb-6d7427701dc4)
+
+
+
+
+
+</details>
+
+
 
 
 
