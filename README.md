@@ -27,6 +27,7 @@
 <details> 
 <summary>API명세서
 </summary>
+  
 ## 사용자
 ![image](https://github.com/user-attachments/assets/0bea9f87-f041-434f-b718-af38d9502ae0)
 
