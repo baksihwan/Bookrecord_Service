@@ -1,10 +1,9 @@
-package com.example.bookrecordService.Book.Dto;
+package com.example.bookrecordService.Comment.Dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-
-public class BookResponseDto {
+public class CommentResponseDto {
 }
