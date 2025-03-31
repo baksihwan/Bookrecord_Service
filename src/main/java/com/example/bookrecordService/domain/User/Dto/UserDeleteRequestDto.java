@@ -5,5 +5,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class UserRequestDto {
+public class UserDeleteRequestDto {
+
+    private Long id;
+    private String password;
 }
