@@ -51,8 +51,10 @@ public class BoardService {
     }
 
     public void deleteBoard(Long id){
-        Board board = boardRepository.findByIdOrElseThrow(id);
-        boardRepository.delete(board);
+        // 보드 삭제하는 법(Delete)
+
+        Board board = boardRepository.findByIdOrElseThrow(id);  // 1. 아이디 예ㅚ처리
+        boardRepository.delete(board); // 2. delete 기능
     }
 
 
