@@ -40,5 +40,16 @@ public class BoardService {
         return BoardResponseDto.toDto(board);
     }
 
+    public BoardResponseDto updateBoard(Long id, Long userId){
+        // 보드 수정하는 법(Patch)
+
+        Board board = boardRepository.findByIdOrElseThrow(id); // 1. id, userId 예외처리하기
+        User user = userRepository.findByIdOrElseThrow(userId);
+        Board board = new Board(board, user);      // 2. Board 객체에 id, userId 저장
+        Board saveBoard = boardRepository.save(board);
+        return BoardResponseDto.toDto(saveBoard);
+
+    }
+
 
 }
