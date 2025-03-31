@@ -32,6 +32,13 @@ public class BoardService {
         // 보드 전체조회하는 법(Get)
         Page<Board> board = boardRepository.findByIdByBoardIdOrderByCreatedAtDesc(pageable, userid);    // 스트링 기법을 이용해서 리스트화
         return board.stream().map(BoardResponseDto ::toDto).toList();
-
     }
+
+    public BoardResponseDto findBoardById(Long id) {
+        // 보드 단건조회하는 법(Get)
+        Board board = boardRepository.findByIdOrElseThrow(id);   // 1. 보드아이디 예외처리하기
+        return BoardResponseDto.toDto(board);
+    }
+
+
 }

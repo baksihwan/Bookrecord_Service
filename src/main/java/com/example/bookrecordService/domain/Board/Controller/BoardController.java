@@ -32,8 +32,8 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BoardResponseDto> findByIdBoard(@PathVariable Long id) {
-        BoardResponseDto boardResponseDto = boardService.findByIdBoard(id);
+    public ResponseEntity<BoardResponseDto> findBoardById(@PathVariable Long id) {
+        BoardResponseDto boardResponseDto = boardService.findBoardById(id);
         return ResponseEntity.ok(boardResponseDto);
     }
 
