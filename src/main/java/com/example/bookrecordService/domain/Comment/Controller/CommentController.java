@@ -21,7 +21,7 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<CommentResponseDto> saveComments(@RequestBody CommentRequestDto commentRequestDto) {
-        CommentResponseDto commentResponseDto = commentService.saveComments(commentRequestDto.getFriendId(),
+        CommentResponseDto commentResponseDto = commentService.saveComments(commentRequestDto.getBoardId(),
                                                                             commentRequestDto.getUserId());
         return new ResponseEntity<>(commentResponseDto, HttpStatus.CREATED);
 
@@ -31,7 +31,7 @@ public class CommentController {
     public ResponseEntity<List<CommentResponseDto>> findAllComments(@PageableDefault(size =20) Pageable pageable,
                                     @RequestBody CommentRequestDto commentRequestDto) {
         List<CommentResponseDto>  ListCommentResponseDto = commentService.findAllComments(pageable,
-                                                                                        commentRequestDto.getFriendId());
+                                                                                        commentRequestDto.getBoardId());
         return new ResponseEntity<>(ListCommentResponseDto, HttpStatus.OK);
 
     }
@@ -45,7 +45,7 @@ public class CommentController {
     @PatchMapping("/{id}")
     public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long id,
                                                             @RequestBody CommentRequestDto commentRequestDto) {
-        CommentResponseDto commentResponseDto = commentService.updateComment(id, commentRequestDto.getFriendId(),
+        CommentResponseDto commentResponseDto = commentService.updateComment(id, commentRequestDto.getBoardId(),
                                                                             commentRequestDto.getUserId());
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
     }
