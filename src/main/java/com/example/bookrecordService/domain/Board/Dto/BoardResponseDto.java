@@ -19,8 +19,9 @@ public class BoardResponseDto {
     private String contents;
     private String userNickname;
 
-    public BoardResponseDto toDto(User user) {
-        return new BoardResponseDto(user.get);
+    public BoardResponseDto toDto(Board board) {
+        return new BoardResponseDto(board.getId(),
+                                    board.getTitle());
     }
 
     public static List<BoardResponseDto> toDto(List<Board> boards) {

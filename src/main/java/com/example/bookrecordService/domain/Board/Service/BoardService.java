@@ -48,8 +48,14 @@ public class BoardService {
         Board board = new Board(board, user);      // 2. Board 객체에 id, userId 저장
         Board saveBoard = boardRepository.save(board);
         return BoardResponseDto.toDto(saveBoard);
-
     }
+
+    public void deleteBoard(Long id){
+        Board board = boardRepository.findByIdOrElseThrow(id);
+        boardRepository.delete(board);
+    }
+
+
 
 
 }
