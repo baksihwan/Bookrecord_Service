@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @Getter
-public class UserPostRequestDto {
+public class UserRequestDto {
 
     private String email;
     private String password;
