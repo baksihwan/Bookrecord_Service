@@ -36,4 +36,11 @@ public class UserService {
         User savedUser = userRepository.save(user); // 2. 유저 객체를 저장한다.
         return UserResponseDto.toDto(savedUser);
     }
+
+    public UserResponseDto updateUser(Long id){
+        // 유저 수정하는 법(Patch)
+        User user = userRepository.findByIdOrElseThrow(id);  // 1. 유저객체를 예외처리한다.
+        User saveUser = userRepository.save(user);         // 2. 유저 객체를 저장한다.
+        return UserResponseDto.toDto(saveUser)
+    }
 }
