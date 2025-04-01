@@ -22,9 +22,11 @@ public class BoardResponseDto {
     public BoardResponseDto toDto(Board board) {
         return new BoardResponseDto(board.getId(),
                                     board.getTitle());
+
     }
 
     public static List<BoardResponseDto> toDto(List<Board> boards) {
         return boards.stream().map(CommentResponseDto::toDto).collect(Collectors.toList());
+
     }
 }

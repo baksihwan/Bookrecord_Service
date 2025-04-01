@@ -24,6 +24,7 @@ public class CommentResponseDto {
         this.comment = comment;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+
     }
 
     public static CommentResponseDto toDto(Comment comment){
@@ -35,7 +36,9 @@ public class CommentResponseDto {
                 comment.getModifiedAt());
 
     }
+
     public static List<CommentResponseDto> toDto(List<Comment> comments){
         return comments.stream().map(CommentResponseDto::toDto).collect(Collectors.toList());
+
     }
 }

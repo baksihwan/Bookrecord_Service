@@ -1,6 +1,5 @@
 package com.example.bookrecordService.domain.User.Controller;
 
-import com.example.bookrecordService.domain.User.Dto.UserDeleteRequestDto;
 import com.example.bookrecordService.domain.User.Dto.UserRequestDto;
 import com.example.bookrecordService.domain.User.Dto.UserResponseDto;
 import com.example.bookrecordService.domain.User.Service.UserService;
@@ -21,18 +20,21 @@ public class UserController {
     public ResponseEntity<List<UserResponseDto>> findAllUser(){
         List<UserResponseDto> userResponseDto = userService.findAllUser();
         return ResponseEntity.ok(userResponseDto);
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findByIdUser(@PathVariable Long id){
         UserResponseDto userResponseDto = userService.findByIdUser(id);
         return ResponseEntity.ok(userResponseDto);
+
     }
 
     @PostMapping
     public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserRequestDto requestDto){
         UserResponseDto userResponseDto = userService.saveUser(requestDto);
         return ResponseEntity.ok(userResponseDto);
+
     }
 
     @PatchMapping("/{id}")
@@ -40,6 +42,7 @@ public class UserController {
                                                       @RequestBody UserRequestDto requestDto){
         UserResponseDto userResponseDto = userService.updateUser(id, requestDto);
         return ResponseEntity.ok(userResponseDto);
+
     }
 
     @DeleteMapping("/{id}")
