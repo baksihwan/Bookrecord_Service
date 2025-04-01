@@ -43,4 +43,10 @@ public class UserService {
         User saveUser = userRepository.save(user);         // 2. 유저 객체를 저장한다.
         return UserResponseDto.toDto(saveUser)
     }
+
+    public void deleteUser(Long id){
+        // 유저 삭제하는 법(Delete)
+        User user = userRepository.findByIdOrElseThrow(id); // 1. 유저 객체를 예외처리
+        userRepository.delete(user);  // 2. delete 삭제 기능
+    }
 }
