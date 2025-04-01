@@ -1,5 +1,6 @@
 package com.example.bookrecordService.domain.User.Service;
 
+import com.example.bookrecordService.domain.User.Dto.UserRequestDto;
 import com.example.bookrecordService.domain.User.Dto.UserResponseDto;
 import com.example.bookrecordService.domain.User.Entity.User;
 import com.example.bookrecordService.domain.User.Repository.UserRepository;
@@ -27,5 +28,12 @@ public class UserService {
         // 유저 단건조회하는 법(Get)
         User user = userRepository.findByIdOrElseThrow(id);   // 1. 유저객체를 예외처리한다.
         return UserResponseDto.toDto(user);   // 2. 이후 유저 객체를 리턴화한다.
+    }
+
+    public UserResponseDto saveUser(UserRequestDto requestDto) {
+        // 유저 생성하는 법(Post)
+        User user = new User(requestDto);  // 1. 유저 객체를 만든다.
+        User savedUser = userRepository.save(user); // 2. 유저 객체를 저장한다.
+        return UserResponseDto.toDto(savedUser);
     }
 }
