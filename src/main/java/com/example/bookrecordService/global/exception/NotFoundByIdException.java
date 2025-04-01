@@ -9,6 +9,5 @@ public class NotFoundByIdException {
 
     public NotFoundByIdException(final ExceptionType exceptionType) {
         this.exceptionType = exceptionType;
-
     }
 }

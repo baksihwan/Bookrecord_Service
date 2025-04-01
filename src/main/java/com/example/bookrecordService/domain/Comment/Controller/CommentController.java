@@ -24,7 +24,6 @@ public class CommentController {
         CommentResponseDto commentResponseDto = commentService.saveComments(commentRequestDto.getBoardId(),
                                                                             commentRequestDto.getUserId());
         return new ResponseEntity<>(commentResponseDto, HttpStatus.CREATED);
-
     }
 
     @GetMapping
@@ -32,14 +31,12 @@ public class CommentController {
                                                                     @RequestBody CommentRequestDto commentRequestDto) {
         List<CommentResponseDto>  ListCommentResponseDto = commentService.findAllComments(pageable, commentRequestDto.getBoardId());
         return new ResponseEntity<>(ListCommentResponseDto, HttpStatus.OK);
-
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CommentResponseDto> findCommentById(@PathVariable Long id) {
         CommentResponseDto commentResponseDto = commentService.findCommentById(id);
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
-
     }
 
     @PatchMapping("/{id}")
@@ -48,18 +45,11 @@ public class CommentController {
         CommentResponseDto commentResponseDto = commentService.updateComment(id, commentRequestDto.getBoardId(),
                                                                             commentRequestDto.getUserId());
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
-
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCommentById(@PathVariable Long id) {
         commentService.deleteCommentById(id);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
-
-
-
-
-
 }

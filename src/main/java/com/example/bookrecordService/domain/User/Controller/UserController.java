@@ -20,21 +20,18 @@ public class UserController {
     public ResponseEntity<List<UserResponseDto>> findAllUser(){
         List<UserResponseDto> userResponseDto = userService.findAllUser();
         return ResponseEntity.ok(userResponseDto);
-
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findByIdUser(@PathVariable Long id){
         UserResponseDto userResponseDto = userService.findByIdUser(id);
         return ResponseEntity.ok(userResponseDto);
-
     }
 
     @PostMapping
     public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserRequestDto requestDto){
         UserResponseDto userResponseDto = userService.saveUser(requestDto);
         return ResponseEntity.ok(userResponseDto);
-
     }
 
     @PatchMapping("/{id}")
@@ -42,13 +39,11 @@ public class UserController {
                                                       @RequestBody UserRequestDto requestDto){
         UserResponseDto userResponseDto = userService.updateUser(id, requestDto);
         return ResponseEntity.ok(userResponseDto);
-
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
-
     }
 }

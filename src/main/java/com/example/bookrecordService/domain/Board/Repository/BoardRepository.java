@@ -10,13 +10,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer> {
-
     default Board findByIdOrElseThrow(Long id) {
         return findById(id).orElseThrow(() -> new NotFoundByIdException(ExceptionType.BOARD_NOT_FOUND));
-
     }
 
     Page<Board> findByIdByBoardIdOrderByCreatedAtDesc(Pageable pageable, Long userId);
-
     }
 

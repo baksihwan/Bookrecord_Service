@@ -22,7 +22,6 @@ public class BoardController {
     public ResponseEntity<BoardResponseDto> saveBoard(@RequestBody BoardRequestDto requestDto) {
         BoardResponseDto boardResponseDto = boardService.saveBoard(requestDto);
         return ResponseEntity.ok(boardResponseDto);
-
     }
 
     @GetMapping
@@ -30,14 +29,12 @@ public class BoardController {
                                                                @RequestBody BoardRequestDto requestDto) {
         List<BoardResponseDto> boardResponseDto = boardService.findAllBoard(pageable, requestDto);
         return ResponseEntity.ok(boardResponseDto);
-
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BoardResponseDto> findBoardById(@PathVariable Long id) {
         BoardResponseDto boardResponseDto = boardService.findBoardById(id);
         return ResponseEntity.ok(boardResponseDto);
-
     }
 
     @PatchMapping("/{id}")
@@ -45,14 +42,12 @@ public class BoardController {
                                                         @RequestBody BoardRequestDto requestDto) {
         BoardResponseDto boardResponseDto = boardService.updateBoard(id, requestDto);
         return ResponseEntity.ok(boardResponseDto);
-
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> DeleteByIdBoard(@PathVariable Long id) {
         boardService.deleteBoard(id);
         return ResponseEntity.noContent().build();
-
     }
 }
 

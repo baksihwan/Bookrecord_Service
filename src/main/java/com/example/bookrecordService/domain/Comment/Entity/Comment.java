@@ -11,11 +11,9 @@ import org.springframework.data.annotation.Id;
 @Entity
 @Table(name = "comment")
 public class Comment extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,7 +21,6 @@ public class Comment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
     }
 
 

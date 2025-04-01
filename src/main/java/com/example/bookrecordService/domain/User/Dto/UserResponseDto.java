@@ -27,11 +27,9 @@ public class UserResponseDto {
         return new UserResponseDto(user.getId(),
                                    user.getUsername()
         )
-
     }
 
     public static List<UserResponseDto> toDto(List<User> users) {
         return users.stream().map(UserResponseDto::toDto).collect(Collectors.toList());
-
     }
 }

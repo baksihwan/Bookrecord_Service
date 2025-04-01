@@ -10,11 +10,9 @@ import org.springframework.data.annotation.Id;
 @Getter
 @Table(name = "board")
 public class Board extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)

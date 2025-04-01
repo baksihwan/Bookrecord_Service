@@ -12,12 +12,9 @@ import org.springframework.data.annotation.Id;
 @Getter
 @Table(name = "user")
 public class User extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
     private String username;
-
     }
 

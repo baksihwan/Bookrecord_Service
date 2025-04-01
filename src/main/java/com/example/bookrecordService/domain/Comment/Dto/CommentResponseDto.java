@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 public class CommentResponseDto {
-
     private Long id;
     private Long userId;
     private String comment;
@@ -24,7 +23,6 @@ public class CommentResponseDto {
         this.comment = comment;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-
     }
 
     public static CommentResponseDto toDto(Comment comment){
@@ -34,11 +32,9 @@ public class CommentResponseDto {
                 comment.getComment(),
                 comment.getCreatedAt(),
                 comment.getModifiedAt());
-
     }
 
     public static List<CommentResponseDto> toDto(List<Comment> comments){
         return comments.stream().map(CommentResponseDto::toDto).collect(Collectors.toList());
-
     }
 }
