@@ -21,6 +21,11 @@ public class UserService {
         // 유저 전체조회하는 법(Get)
         List<User> users = new ArrayList<>(); // 1. 유저를 리스트화한다.
         return UserResponseDto.toDto(users);  // 2. 유저를 스트링 기법으로 리스트화한다.
+    }
 
+    public UserResponseDto findByIdUser(Long id) {
+        // 유저 단건조회하는 법(Get)
+        User user = userRepository.findByIdOrElseThrow(id);   // 1. 유저객체를 예외처리한다.
+        return UserResponseDto.toDto(user);   // 2. 이후 유저 객체를 리턴화한다.
     }
 }
