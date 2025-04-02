@@ -9,4 +9,10 @@ public class CommentRequestDto {
     private Long boardId;
     private  Long userId;
     private String comment;
+
+    public CommentRequestDto(Long boardId, Long userId, String comment) {
+        this.boardId = boardId;
+        this.userId = userId;
+        this.comment = comment;
+    }
     }

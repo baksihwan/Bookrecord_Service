@@ -5,7 +5,6 @@ import com.example.bookrecordService.domain.User.Entity.User;
 import com.example.bookrecordService.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
 
 @Getter
 @Entity
@@ -21,6 +20,13 @@ public class Comment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    public Comment(Board board, User user) {
+        this.board = board;
+        this.user = user;
+
+    }
+    public Comment(){}
     }
 
 

@@ -28,7 +28,7 @@ public class UserService {
         return UserResponseDto.toDto(user);   // 2. 이후 유저 객체를 리턴화한다.
     }
 
-    public UserResponseDto saveUser(UserRequestDto requestDto) {
+    public UserResponseDto saveUser(UserRequestDto userRequestDto) {
         // 유저 생성하는 법(Post)
         User user = new User(requestDto);  // 1. 유저 객체를 만든다.
         User savedUser = userRepository.save(user); // 2. 유저 객체를 저장한다.

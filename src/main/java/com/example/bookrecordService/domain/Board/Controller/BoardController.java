@@ -20,14 +20,14 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<BoardResponseDto> saveBoard(@RequestBody BoardRequestDto requestDto) {
-        BoardResponseDto boardResponseDto = boardService.saveBoard(requestDto);
+        BoardResponseDto boardResponseDto = boardService.saveBoard(requestDto.getUserId());
         return ResponseEntity.ok(boardResponseDto);
     }
 
     @GetMapping
     public ResponseEntity<List<BoardResponseDto>> findAllBoard(@PageableDefault(size = 20) Pageable pageable,
                                                                @RequestBody BoardRequestDto requestDto) {
-        List<BoardResponseDto> boardResponseDto = boardService.findAllBoard(pageable, requestDto);
+        List<BoardResponseDto> boardResponseDto = boardService.findAllBoard(pageable, requestDto.getUserId());
         return ResponseEntity.ok(boardResponseDto);
     }
 
@@ -40,7 +40,7 @@ public class BoardController {
     @PatchMapping("/{id}")
     public ResponseEntity<BoardResponseDto> updateBoard(@PathVariable Long id,
                                                         @RequestBody BoardRequestDto requestDto) {
-        BoardResponseDto boardResponseDto = boardService.updateBoard(id, requestDto);
+        BoardResponseDto boardResponseDto = boardService.updateBoard(id, requestDto.getUserId());
         return ResponseEntity.ok(boardResponseDto);
     }
 

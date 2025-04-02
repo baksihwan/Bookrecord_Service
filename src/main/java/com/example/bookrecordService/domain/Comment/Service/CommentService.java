@@ -31,7 +31,7 @@ public class CommentService {
     }
 
     public List<CommentResponseDto> findAllComments(Pageable pageable,Long boardId) {
-        Page<Comment> comment = boardRepository.findCommentsByBoardIdOrderByCreatedAtDesc(pageable, boardId);
+        Page<Comment> comment = commentRepository.findCommentsByFriendIdOrderByCreatedAtDesc(pageable, boardId);
         return comment.stream().map(CommentResponseDto::toDto).toList();
     }
 
@@ -40,11 +40,10 @@ public class CommentService {
         return CommentResponseDto.toDto(comment);
     }
 
-    public CommentResponseDto updateComment(Long id, Long boardId, Long userId) {
-        Comment comment = commentRepository.findCommentsByIdOrElseThrow(id);
+    public CommentResponseDto updateComment(Long boardId, Long userId) {
         Board board = boardRepository.findByIdOrElseThrow(boardId);
         User user = userRepository.findByIdOrElseThrow(userId);
-        Comment comments = new Comment(comment, board, user);
+        Comment comments = new Comment(board, user);
         Comment updatedComment = commentRepository.save(comments);
         return CommentResponseDto.toDto(updatedComment);
     }

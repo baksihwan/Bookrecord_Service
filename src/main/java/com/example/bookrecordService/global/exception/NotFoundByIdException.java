@@ -3,7 +3,7 @@ package com.example.bookrecordService.global.exception;
 import lombok.Getter;
 
 @Getter
-public class NotFoundByIdException {
+public class NotFoundByIdException extends RuntimeException {
 
     private final ExceptionType exceptionType;
 
