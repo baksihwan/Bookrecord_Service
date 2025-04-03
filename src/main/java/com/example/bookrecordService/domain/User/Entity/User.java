@@ -1,18 +1,22 @@
 package com.example.bookrecordService.domain.User.Entity;
 
-import com.example.bookrecordService.domain.Image.Entity.Image;
 import com.example.bookrecordService.global.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
+import lombok.*;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 @Entity
 @Getter
 @Table(name = "user")
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotBlank
     @Column(name = "email", unique = true)

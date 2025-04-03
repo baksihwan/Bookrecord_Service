@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 public class UserResponseDto {
-    private Long id;
+    private String id;
     private String email;
     private String userNickname;
     private Long phoneNumber;
     private LocalDateTime createdAt;
     private LocalDateTime modifyAt;
 
-    public UserResponseDto(Long id, String email, String userNickname, Long phoneNumber, LocalDateTime createdAt, LocalDateTime modifyAt) {
+    public UserResponseDto(String id, String email, String userNickname, Long phoneNumber, LocalDateTime createdAt, LocalDateTime modifyAt) {
         this.id = id;
         this.email = email;
         this.userNickname = userNickname;
