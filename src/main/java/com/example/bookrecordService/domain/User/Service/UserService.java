@@ -1,12 +1,14 @@
 package com.example.bookrecordService.domain.User.Service;
 
 import com.example.bookrecordService.domain.User.Dto.UserLoginRequestDto;
+import com.example.bookrecordService.domain.User.Dto.UserLoginResponseDto;
 import com.example.bookrecordService.domain.User.Dto.UserResponseDto;
 import com.example.bookrecordService.domain.User.Entity.User;
 import com.example.bookrecordService.domain.User.Repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,43 +34,35 @@ public class UserService {
         return UserResponseDto.toDto(user);   // 2. 이후 유저 객체를 리턴화한다.
     }
     // 로그인 처리 매서드
-    public void login(HttpServletResponse httpServletResponse, UserLoginRequestDto userRequestDto){
-        var email = userRequestDto.getEmail(); // 로그인 시 입력된 이메일
-        var password = userRequestDto.getPassword(); // 로그인 시 입력된 비밀번호
+    public UserLoginResponseDto login(UserLoginRequestDto requestDto, HttpServletRequest request) {
+        var email = requestDto.getEmail(); // 로그인 시 입력된 이메일
+        var password = requestDto.getPassword(); // 로그인 시 입력된 비밀번호
 
         // 이메일로 사용자 찾기
         var optionalUser = userRepository.findByEmail(email);
 
         // 이메일이 등록되지 않은 경우 예외 발생
-        if (optionalUser.isEmpty()){
+        if (optionalUser.isEmpty()) {
             throw new RuntimeException("해당 이메일은 가입되지 않았습니다.");
         }
 
         var user = optionalUser.get(); // 사용자가 존재하는 경우
 
         //비밀번호 확인
-        if (!user.getPassword().equals(password)){
+        if (!user.getPassword().equals(password)) {
             throw new RuntimeException("비밀번호가 맞지 않습니다.");
         }
-        // 로그인 성공 후 쿠키 생성
-        Cookie cookie = new Cookie("USER", user.getId()); //USER라는 이름의 쿠키 생성
-        cookie.setDomain("localhost"); // 쿠키의 도메인 설정 (localhost)
-        cookie.setPath("/"); //모든 경로에서 쿠키 사용 가능
-        cookie.setHttpOnly(true); // 자바 스크립트에서 접근 불가, 보안 강화
-        cookie.setMaxAge(-1); // 브라우저 종료 시 쿠키 삭제
-        cookie.setSecure(false); // HTTP에서도 쿠키 사용 가능
 
-        httpServletResponse.addCookie(cookie);
+        request.getSession().setAttribute("USER", user);
+        return new UserLoginResponseDto(optionalUser.getId());
+
     }
 
-    public void logout(HttpServletResponse httpServletResponse){
-        Cookie cookie = new Cookie("USER", null);
-        cookie.setDomain("localhost");
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(0);
-        cookie.setSecure(false);
-        httpServletResponse.addCookie(cookie);
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
     }
 
     //사용자 정보 조회 메서드
@@ -108,4 +102,5 @@ public class UserService {
         User user = userRepository.findByIdOrElseThrow(id); // 1. 유저 객체를 예외처리
         userRepository.delete(user);  // 2. delete 삭제 기능
     }
-}
+
+
