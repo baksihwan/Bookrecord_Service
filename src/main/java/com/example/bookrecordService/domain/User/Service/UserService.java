@@ -61,6 +61,16 @@ public class UserService {
         httpServletResponse.addCookie(cookie);
     }
 
+    public void logout(HttpServletResponse httpServletResponse){
+        Cookie cookie = new Cookie("USER", null);
+        cookie.setDomain("localhost");
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        cookie.setSecure(false);
+        httpServletResponse.addCookie(cookie);
+    }
+
     //사용자 정보 조회 메서드
     public String userInfo(HttpServletRequest httpServletRequest, String cookie){
         //쿠키가 업는 경우 로그인 요청

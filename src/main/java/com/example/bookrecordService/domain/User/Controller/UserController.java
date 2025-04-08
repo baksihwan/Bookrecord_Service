@@ -37,6 +37,11 @@ public class UserController {
         userService.login(httpServletResponse, requestDto);
     }
 
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse httpServletResponse){
+        userService.logout(httpServletResponse);
+    }
+
     @PatchMapping("/{id}") // 사용자 정보 수정
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id){
         UserResponseDto userResponseDto = userService.updateUser(id);
