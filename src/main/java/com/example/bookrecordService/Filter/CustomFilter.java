@@ -13,7 +13,7 @@ import java.io.IOException;
 import jakarta.servlet.Filter;
 
 @Slf4j
-public class LoginFilter implements Filter{
+public class CustomFilter implements Filter{
 
     private static final String[] WHITE_LIST = {"/", "/users/signup", "/login", "/logout"};
 
@@ -34,7 +34,7 @@ public class LoginFilter implements Filter{
         //WhiteList에 포함되지 않은 URL의 경우 해당 로직 수행
         if(!isWhiteList(requestURI)) {
             HttpSession session = httpRequest.getSession(false);
-            if(session != null || session.getAttribute("sessionKey") == null){
+            if(session != null || session.getAttribute("email") == null){
                 throw new RuntimeException("로그인 해주세요,");
             }
 
