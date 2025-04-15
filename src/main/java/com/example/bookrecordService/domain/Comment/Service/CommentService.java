@@ -31,7 +31,7 @@ public class CommentService {
     }
 
     public List<CommentResponseDto> findAllComments(Pageable pageable,Long boardId) {
-        Page<Comment> comment = commentRepository.findCommentsByFriendIdOrderByCreatedAtDesc(pageable, boardId);
+        Page<Comment> comment = commentRepository.findCommentsByBoardIdOrderByCreatedAtDesc(pageable, boardId);
         return comment.stream().map(CommentResponseDto::toDto).toList();
     }
 

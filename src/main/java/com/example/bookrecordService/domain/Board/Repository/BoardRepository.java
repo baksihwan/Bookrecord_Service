@@ -15,6 +15,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
         return findById(id).orElseThrow(() -> new NotFoundByIdException(ExceptionType.BOARD_NOT_FOUND));
     }
 
-    Page<Board> findByIdByBoardIdOrderByCreatedAtDesc(Pageable pageable, Long userId);
+    Page<Board> findBoardByUserIdOrderByCreatedAtDesc(Pageable pageable, Long userId);
     }
 

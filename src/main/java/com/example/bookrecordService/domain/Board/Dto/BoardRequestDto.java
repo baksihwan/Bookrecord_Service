@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 public class BoardRequestDto {
     private Long userId;
     private String title;
-    private String content;
+    private String contents;
 
-    public BoardRequestDto(Long userId, String title, String content) {
+    public BoardRequestDto(Long userId, String title, String contents) {
         this.userId = userId;
         this.title = title;
-        this.content = content;
+        this.contents = contents;
     }
 }

@@ -14,5 +14,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
         return findById(id).orElseThrow(()-> new NotFoundByIdException(ExceptionType.COMMENT_NOT_FOUND));
     }
 
-    Page<Comment> findCommentsByFriendIdOrderByCreatedAtDesc(Pageable pageable, Long boardId);
+    Page<Comment> findCommentsByBoardIdOrderByCreatedAtDesc(Pageable pageable, Long boardId);
 }

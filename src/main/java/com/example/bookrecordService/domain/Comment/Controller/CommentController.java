@@ -40,9 +40,8 @@ public class CommentController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long id,
-                                                            @RequestBody CommentRequestDto commentRequestDto) {
-        CommentResponseDto commentResponseDto = commentService.updateComment(id, commentRequestDto.getBoardId(),
+    public ResponseEntity<CommentResponseDto> updateComment(@RequestBody CommentRequestDto commentRequestDto) {
+        CommentResponseDto commentResponseDto = commentService.updateComment( commentRequestDto.getBoardId(),
                                                                             commentRequestDto.getUserId());
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
     }

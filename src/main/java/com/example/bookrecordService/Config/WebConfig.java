@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     public FilterRegistrationBean loginFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean= new FilterRegistrationBean<>();
         //Filter 등록
-        filterRegistrationBean.setFilter((Filter) new LoginFilter());
+        filterRegistrationBean.setFilter((Filter)new LoginFilter());
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.addUrlPatterns("/*");
 

@@ -20,7 +20,7 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<BoardResponseDto> saveBoard(@RequestBody BoardRequestDto requestDto) {
-        BoardResponseDto boardResponseDto = boardService.saveBoard(requestDto.getUserId());
+        BoardResponseDto boardResponseDto = boardService.saveBoard(requestDto.getUserId(), requestDto.getTitle(), requestDto.getContents());
         return ResponseEntity.ok(boardResponseDto);
     }
 
@@ -38,9 +38,8 @@ public class BoardController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<BoardResponseDto> updateBoard(@PathVariable Long id,
-                                                        @RequestBody BoardRequestDto requestDto) {
-        BoardResponseDto boardResponseDto = boardService.updateBoard(id, requestDto.getUserId());
+    public ResponseEntity<BoardResponseDto> updateBoard(@PathVariable Long id) {
+        BoardResponseDto boardResponseDto = boardService.updateBoard(id);
         return ResponseEntity.ok(boardResponseDto);
     }
 

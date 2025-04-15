@@ -10,11 +10,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.PatternMatchUtils;
 import java.io.IOException;
+import jakarta.servlet.Filter;
 
 @Slf4j
 public class LoginFilter implements Filter{
 
-    private static final String[] WHITE_LIST = {"/", "/user/signup", "/login", "/logout"};
+    private static final String[] WHITE_LIST = {"/", "/users/signup", "/login", "/logout"};
 
     @Override
     public void doFilter(

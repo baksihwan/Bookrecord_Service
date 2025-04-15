@@ -16,11 +16,20 @@ import lombok.*;
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @NotBlank
     @Column(name = "email", unique = true)
     private String email;
+
+    @NotBlank
+    @Column(name = "username")
+    private String username;
+
+    @NotBlank
+    @Column(name = "age")
+    private Long age;
+
 
     @NotBlank
     @Column(name = "password")
@@ -35,5 +44,14 @@ public class User extends BaseEntity {
     private Long phoneNumber;
 
 
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
+    public User(String username, String password, Long age) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+    }
 }
 

@@ -1,13 +1,8 @@
 package com.example.bookrecordService.domain.User.Dto;
 
-import com.example.bookrecordService.domain.Comment.Dto.CommentResponseDto;
-import com.example.bookrecordService.domain.Comment.Entity.Comment;
-import com.example.bookrecordService.domain.Image.Entity.Image;
 import com.example.bookrecordService.domain.User.Entity.User;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,14 +11,14 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 public class UserResponseDto {
-    private String id;
+    private Long id;
     private String email;
     private String userNickname;
     private Long phoneNumber;
     private LocalDateTime createdAt;
     private LocalDateTime modifyAt;
 
-    public UserResponseDto(String id, String email, String userNickname, Long phoneNumber, LocalDateTime createdAt, LocalDateTime modifyAt) {
+    public UserResponseDto(Long id, String email, String userNickname, Long phoneNumber, LocalDateTime createdAt, LocalDateTime modifyAt) {
         this.id = id;
         this.email = email;
         this.userNickname = userNickname;

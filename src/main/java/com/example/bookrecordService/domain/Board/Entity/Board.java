@@ -22,17 +22,14 @@ public class Board extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    public Board(Long id, String title, String contents, User user) {
-        this.id = id;
+    public Board(String title, String contents) {
         this.title = title;
         this.contents = contents;
-        this.user = user;
     }
 
-    public Board() {
-    }
+    public Board() {}
 
-    public Board(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 }
