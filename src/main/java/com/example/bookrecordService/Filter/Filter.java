@@ -4,11 +4,14 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 
+import javax.naming.AuthenticationException;
 import java.io.IOException;
 
 public interface Filter {
-
     void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException;
 }
