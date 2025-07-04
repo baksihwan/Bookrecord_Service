@@ -1,7 +1,6 @@
 package com.example.bookrecordService.domain.Board.Repository;
 
 import com.example.bookrecordService.domain.Board.Entity.Board;
-import com.example.bookrecordService.domain.Comment.Entity.Comment;
 import com.example.bookrecordService.global.exception.ExceptionType;
 import com.example.bookrecordService.global.exception.NotFoundByIdException;
 import org.springframework.data.domain.Page;

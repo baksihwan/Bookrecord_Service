@@ -19,9 +19,11 @@ public class UserService {
         // 새롭게 알게된점 : 1. 엔티티 안에 필드를 다 호출할  필요가 없다.
         // 2. new User를 기능시키려면 User파일 내에서 불러오려는 파일의 생성자를 만든다.
         // 3. 엔티티는 request, response를 포함한 모든 필드가 있다. 그 중에 필요한 것만 호출하면 된다.
-
         User user = new User(username, password, age);
         User savedUser = userRepository.save(user);
+        if(savedUser == null){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "로그인에 실패하였습니다.");
+        }
 
         return new SignUpResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getAge());
     }

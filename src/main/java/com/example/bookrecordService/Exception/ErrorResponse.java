@@ -8,4 +8,6 @@ import lombok.RequiredArgsConstructor;
 public class ErrorResponse {
     // HTTP 상태 코드와 에러 메세지를 응답하는 클래스
     private final String message;
-}
+
+    }
+

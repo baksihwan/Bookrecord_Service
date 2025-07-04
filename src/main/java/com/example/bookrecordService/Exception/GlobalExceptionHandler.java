@@ -1,11 +1,8 @@
 package com.example.bookrecordService.Exception;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -13,7 +10,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> handleLoginDeniedException(CustomException e) {
         return handleExceptionInternal(e.getErrorCode());
-    }
+    } //handlerExceptionInternal 뜻: 예외 발생시 스프링 내부에서 예외처리하도록 하는 메서드
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(CustomException e){
