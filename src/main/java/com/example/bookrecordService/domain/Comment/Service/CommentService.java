@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class CommentService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
 
+    @Transactional
     public CommentResponseDto saveComments(Long boardId, Long userId) {
         Board board = boardRepository.findByIdOrElseThrow(boardId);
         User user = userRepository.findByIdOrElseThrow(userId);
@@ -40,6 +42,7 @@ public class CommentService {
         return CommentResponseDto.toDto(comment);
     }
 
+    @Transactional
     public CommentResponseDto updateComment(Long boardId, Long userId) {
         Board board = boardRepository.findByIdOrElseThrow(boardId);
         User user = userRepository.findByIdOrElseThrow(userId);
@@ -48,6 +51,7 @@ public class CommentService {
         return CommentResponseDto.toDto(updatedComment);
     }
 
+    @Transactional
     public void deleteCommentById(Long id) {
         Comment comment = commentRepository.findCommentsByIdOrElseThrow(id);
         commentRepository.delete(comment);

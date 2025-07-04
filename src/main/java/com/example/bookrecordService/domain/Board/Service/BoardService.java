@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
+    @Transactional(readOnly = true)
     public BoardResponseDto saveBoard(Long userId, String title, String contents) {
         // 보드 생성하는 법 (Post)
         User user = userRepository.findByIdOrElseThrow(userId);  // 1. 우선 유저 아이디를 불러온다 -->이유 : 유저안에서 보드생성이 이루어지기 때문
@@ -44,6 +46,7 @@ public class BoardService {
         return BoardResponseDto.toDto(findboard);
     }
 
+    @Transactional(readOnly = true)
     public BoardResponseDto updateBoard(Long id){
         // 보드 수정하는 법(Patch)
         Board findboard = boardRepository.findByIdOrElseThrow(id); // 1. id, userId 예외처리하기
@@ -51,6 +54,7 @@ public class BoardService {
         return BoardResponseDto.toDto(saveBoard);
     }
 
+    @Transactional(readOnly = true)
     public void deleteBoard(Long id){
         // 보드 삭제하는 법(Delete)
         Board board = boardRepository.findByIdOrElseThrow(id);  // 1. 아이디 예ㅚ처리
