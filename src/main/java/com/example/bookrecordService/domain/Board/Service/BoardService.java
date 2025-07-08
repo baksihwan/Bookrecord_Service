@@ -5,13 +5,14 @@ import com.example.bookrecordService.domain.Board.Entity.Board;
 import com.example.bookrecordService.domain.Board.Repository.BoardRepository;
 import com.example.bookrecordService.domain.User.Entity.User;
 import com.example.bookrecordService.domain.User.Repository.UserRepository;
+import io.lettuce.core.RedisException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,23 +22,46 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
+
     @Transactional(readOnly = true)
     public BoardResponseDto saveBoard(Long userId, String title, String contents) {
         // 보드 생성하는 법 (Post)
         User user = userRepository.findByIdOrElseThrow(userId);  // 1. 우선 유저 아이디를 불러온다 -->이유 : 유저안에서 보드생성이 이루어지기 때문
-        Board board = new Board(title,contents);   // 2. 보드 엔티티를 불러와서 매개변수로 유저를 대입한다.
+        Board board = new Board(title, contents);   // 2. 보드 엔티티를 불러와서 매개변수로 유저를 대입한다.
         board.setUser(user);
         Board saveBoard = boardRepository.save(board);  // 3. 유저 객체 안에서 보드를 저장한다(save)
         return BoardResponseDto.toDto(saveBoard);
     }
 
-    public List<BoardResponseDto> findAllBoard(Pageable pageable, Long userId){
-        // 보드 전체조회하는 법(Get)
-        Page<Board> board = boardRepository.findBoardByUserIdOrderByCreatedAtDesc(pageable, userId);
-        List<BoardResponseDto> responseDtoList = board.getContent().stream().map(BoardResponseDto::toDto).collect(Collectors.toList());
-        // 스트링 기법을 이용해서 리스트화
-        return responseDtoList;
+
+    public List<BoardResponseDto> findAllBoard(Pageable pageable, Long userId) {
+
+        String redisKey = "board::userId::" + userId + "::page::" + pageable.getPageNumber();
+
+        try {
+
+            Optional<List<BoardResponseDto>> cachedBoardList = redisUtil.get(redisKey);
+            if (cachedBoardList.isPresent()) {
+                return cachedBoardList.get();
+            }
+
+            Page<Board> boardPage = boardRepository.findBoardByUserIdOrderByCreatedAtDesc(pageable, userId);
+            List<BoardResponseDto> boardDtoList = boardPage.getContent().stream()
+                    .map(BoardResponseDto::toDto)
+                    .collect(Collectors.toList());
+
+            redisUtil.set(redisKey, boardDtoList);
+
+            return boardDtoList;
+        } catch (RedisException e) {
+
+            Page<Board> boardPage = boardRepository.findBoardByUserIdOrderByCreatedAtDesc(pageable, userId);
+            return boardPage.getContent().stream()
+                    .map(BoardResponseDto::toDto)
+                    .collect(Collectors.toList());
+        }
     }
+
 
     public BoardResponseDto findBoardById(Long id) {
         // 보드 단건조회하는 법(Get)
