@@ -1,8 +1,8 @@
 package com.example.bookrecordService.domain.Board.Repository;
 
+import com.example.bookrecordService.Exception.ExceptionType;
+import com.example.bookrecordService.Exception.NotFoundByIdException;
 import com.example.bookrecordService.domain.Board.Entity.Board;
-import com.example.bookrecordService.global.exception.ExceptionType;
-import com.example.bookrecordService.global.exception.NotFoundByIdException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
