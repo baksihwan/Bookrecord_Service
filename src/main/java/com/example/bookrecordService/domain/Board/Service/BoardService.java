@@ -1,5 +1,6 @@
 package com.example.bookrecordService.domain.Board.Service;
 
+import com.example.bookrecordService.Util.RedisUtil;
 import com.example.bookrecordService.domain.Board.Dto.BoardResponseDto;
 import com.example.bookrecordService.domain.Board.Entity.Board;
 import com.example.bookrecordService.domain.Board.Repository.BoardRepository;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BoardService {
 
+    private final RedisUtil redisUtil;
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
