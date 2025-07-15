@@ -1,5 +1,6 @@
 package com.example.bookrecordService.domain.User.Repository;
 
+import com.example.bookrecordService.Exception.ExceptionType;
 import com.example.bookrecordService.Exception.NotFoundByIdException;
 import com.example.bookrecordService.domain.User.Entity.User;
 
