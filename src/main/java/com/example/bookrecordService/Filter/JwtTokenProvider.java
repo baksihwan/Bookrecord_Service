@@ -1,15 +1,8 @@
 package com.example.bookrecordService.Filter;
 
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-
-import java.security.Key;
-import java.security.SignatureException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
