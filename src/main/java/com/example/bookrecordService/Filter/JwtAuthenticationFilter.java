@@ -7,20 +7,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider; //JWT 토큰을 처리하기 위한 값
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         // Request Header에서 JWT 토큰 추출
-        String token = resolveToken(request);
+        String token = jwtTokenProvider.resolveToken(request);
 
         // 토큰 유효성 검사 후 인증 처리
         if (token != null && jwtTokenProvider.validateToken(token)) {

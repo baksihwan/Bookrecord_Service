@@ -1,5 +1,7 @@
 package com.example.bookrecordService.domain.User.Service;
 
+import com.example.bookrecordService.Filter.JwtTokenProvider;
+import com.example.bookrecordService.domain.User.Dto.LoginRequestDto;
 import com.example.bookrecordService.domain.User.Dto.SignUpRequestDto;
 import com.example.bookrecordService.domain.User.Dto.SignUpResponseDto;
 import com.example.bookrecordService.domain.User.Dto.UserResponseDto;
@@ -20,11 +22,24 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
     // 새롭게 알게된점 : 1. 엔티티 안에 필드를 다 호출할  필요가 없다.
     // 2. new User를 기능시키려면 User파일 내에서 불러오려는 파일의 생성자를 만든다.
     // 3. 엔티티는 request, response를 포함한 모든 필드가 있다. 그 중에 필요한 것만 호출하면 된다.
 
     //  로그인 - 액세스 토큰 발급
+
+    public String login(LoginRequestDto requestDto) {
+        User user = userRepository.findByUsername(requestDto.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."));
+
+        if(passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+            String token = jwtTokenProvider.createToken(user.getUsername(), secretkey,  validityInMilliseconds);
+            return token;}
+    } else {
+        throw new ResponseStatusException(HttpStatus.INVALID_PASSWORD);
+    }
+
     @Transactional
     public UserResponseDto signUp(String username, String password) {
         User user = userRepository.findByUsername(username)

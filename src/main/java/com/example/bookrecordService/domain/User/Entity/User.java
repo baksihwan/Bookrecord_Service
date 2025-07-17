@@ -43,6 +43,9 @@ public class User extends BaseEntity {
     @Column(name = "phone_number")
     private Long phoneNumber;
 
+    @Column(name = "role")
+    private String role;
+
 
     public void updatePassword(String password) {
         this.password = password;
