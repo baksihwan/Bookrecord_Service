@@ -7,7 +7,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public class LoginJwtTokenDto {
 
+    String username;
     String grantType;
     String accessToken;
     Long accessTokenExpiresAt;
+
+
+    public LoginJwtTokenDto(String username) {
+        this.username = username;
+    }
 }

@@ -1,14 +1,20 @@
 package com.example.bookrecordService.domain.User.Controller;
 import com.example.bookrecordService.Filter.JwtTokenProvider;
 import com.example.bookrecordService.domain.User.Dto.*;
-import com.example.bookrecordService.domain.User.Repository.UserRepository;
+
 import com.example.bookrecordService.domain.User.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 @RestController
@@ -22,23 +28,30 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<LoginJwtTokenDto> login(@RequestBody LoginRequestDto request) {
-        Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername() ,
-                        request.getPassword()
-                )
-                );
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
 
-        // 인증 성공 시 jwt 생성
-        String token = jwtTokenProvider.createToken(
-                auth.getUsername(),
-                auth.getRole()
-        );
+            // 인증 성공 시 jwt 생성
 
-        //토큰 반환
-        return ResponseEntity.ok(new LoginJwtTokenDto(token));
+            SecurityContextHolder.getContext().setAuthentication(authentication); // 인증 정보 저장
 
+            String token = jwtTokenProvider.createToken(authentication); // JWT 생성
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + token);
+
+
+            return ResponseEntity.ok().headers(headers).body(new LoginJwtTokenDto(request.getUsername()));
+        } catch (AuthenticationException e) {
+            // 인증 실패 시
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new AuthErrorResponse(false, "인증 실패", e.getMessage()));
         }
     }
 
