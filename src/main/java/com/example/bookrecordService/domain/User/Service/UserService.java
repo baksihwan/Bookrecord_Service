@@ -15,12 +15,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @RequiredArgsConstructor
@@ -66,12 +66,16 @@ public class UserService {
 
 
     @Transactional
-    public UserResponseDto signUp(String username, String password) {
+    public SignUpResponseDto signUp(String username, String password, Long age) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("유저가 없습니다."));
+
+        User findUser = new User(username, password, age);
+        User savedUser = userRepository.save(findUser);
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("비밀번호가 틀렸습니다.");
-        } return new UserResponseDto()
+        } return  SignUpResponseDto.toDto(savedUser);
     }
 
 

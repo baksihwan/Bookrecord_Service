@@ -1,20 +1,13 @@
 package com.example.bookrecordService.domain.User.Controller;
-import com.example.bookrecordService.Filter.JwtTokenProvider;
-import com.example.bookrecordService.domain.User.Dto.*;
 
+import com.example.bookrecordService.domain.User.Dto.*;
 import com.example.bookrecordService.domain.User.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 
 @RestController
@@ -22,17 +15,14 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
-
     private final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
 
-
-    @PostMapping("/login")
+    @PostMapping
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
         try {
             Object tokenDto = userService.login(request);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", "Bearer " + tokenDto.getAccessToken());
+            headers.add("Authorization", "Bearer " + tokenDto);
 
             return ResponseEntity.ok().headers(headers).body(tokenDto);
         } catch (AuthenticationException e) {
@@ -41,7 +31,11 @@ public class UserController {
         }
     }
 
-
+    @PostMapping
+    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto request) {
+        SignUpResponseDto signUpResponseDto = userService.signUp(request.getUsername(), request.getPassword(), request.getAge());
+        return ResponseEntity.ok(signUpResponseDto);
+    }
 
 
 
