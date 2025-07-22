@@ -22,7 +22,7 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
-    private final AuthenticationManager authenticationManager;
+
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -30,30 +30,19 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
         try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getUsername(),
-                            request.getPassword()
-                    )
-            );
-
-            // 인증 성공 시 jwt 생성
-
-            SecurityContextHolder.getContext().setAuthentication(authentication); // 인증 정보 저장
-
-            String token = jwtTokenProvider.createToken(authentication); // JWT 생성
-
+            Object tokenDto = userService.login(request);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", "Bearer " + token);
+            headers.add("Authorization", "Bearer " + tokenDto.getAccessToken());
 
-
-            return ResponseEntity.ok().headers(headers).body(new LoginJwtTokenDto(request.getUsername()));
+            return ResponseEntity.ok().headers(headers).body(tokenDto);
         } catch (AuthenticationException e) {
-            // 인증 실패 시
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AuthErrorResponse(false, "인증 실패", e.getMessage()));
         }
     }
+
+
+
 
 
     @PostMapping
