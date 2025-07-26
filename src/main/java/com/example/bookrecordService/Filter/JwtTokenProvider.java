@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.*;
 
 
@@ -21,17 +26,23 @@ import java.util.*;
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}") // 환경 변수 주입
-    private String secretKey;
+    private String secretKeyRaw;
 
     @Value("${jwt.expiration}")
     private Long validityInMilliseconds;
 
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    private Key secretKey;
 
+    @PostConstruct
+    protected void init() {
+        byte[] keyBytes = secretKeyRaw.getBytes(StandardCharsets.UTF_8);
+        this.secretKey = Keys.hmacShaKeyFor(keyBytes); // ✅ Key 객체로 변환
+    }
     //토큰 유효성 검사
     public boolean validateToken(String token) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
             log.info("exception : {}", e.getMessage());
@@ -39,13 +50,14 @@ public class JwtTokenProvider {
         }
     }
 
-   //토큰에서 username 추출
+    //토큰에서 username 추출
     public String getUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey.getBytes())
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
-                .getSubject(); // Subject에 username 저장
+                .getSubject();
     }
 
     public String resolveToken(HttpServletRequest request) { // 요청 header에서 jwt 토큰 추출메서드

@@ -17,7 +17,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
         try {
             Object tokenDto = userService.login(request);
@@ -31,7 +31,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto request) {
         SignUpResponseDto signUpResponseDto = userService.signUp(request.getUsername(), request.getPassword(), request.getAge());
         return ResponseEntity.ok(signUpResponseDto);
