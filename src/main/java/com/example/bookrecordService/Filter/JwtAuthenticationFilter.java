@@ -21,6 +21,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        String uri = request.getRequestURI();
+
+        // 인증 제외 경로
+
+        if(uri.equals("/signup") || uri.equals("/login") || uri.equals("/signin")) {
+            filterChain.doFilter(request, response);
+
+            return;
+        }
+
         // Request Header에서 JWT 토큰 추출
         String token = jwtTokenProvider.resolveToken(request);
 

@@ -79,20 +79,6 @@ public class UserService {
     }
 
 
-
-        @Transactional
-        public SignUpResponseDto signUpUser (String username, String password, Long age){
-
-            User user = new User(username, password, age);
-            User savedUser = userRepository.save(user);
-            if (savedUser == null) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "로그인에 실패하였습니다.");
-            }
-
-            return new SignUpResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getAge());
-        }
-
-
         public UserResponseDto findUserById (Long id){
             // 유저 단건조회하는 법(Get)
             User user = userRepository.findByIdOrElseThrow(id); // 1. 유저객체를 예외처리한다.

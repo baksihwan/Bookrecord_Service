@@ -39,12 +39,7 @@ public class UserController {
 
 
 
-    @PostMapping
-    public ResponseEntity<SignUpResponseDto> signUpUser(@RequestBody SignUpRequestDto requestDto){
-        SignUpResponseDto signUpResponseDto = userService.signUpUser(requestDto.getUsername(), requestDto.getPassword(),
-                                                                   requestDto.getAge());
-        return ResponseEntity.ok(signUpResponseDto);
-    }
+
 
 
     @GetMapping("/{id}")
